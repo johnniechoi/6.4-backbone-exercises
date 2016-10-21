@@ -1,6 +1,5 @@
 var $ = require('jquery');
 var Backbone = require('backbone');
-
 var formTemplate = require('../templates/add_form.hbs');
 
 
@@ -31,7 +30,7 @@ var AddContact = Backbone.View.extend({
       phone: phone
     });
 
-    console.log(this.collection.fetch());
+    // console.log(this.collection.fetch());
   }
 });
 

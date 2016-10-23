@@ -54,7 +54,8 @@ var blogServerPost = Backbone.View.extend({
   },
   addBlog: function(e){
     e.preventDefault();
-console.log('is this working?');
+
+  console.log('is this working?');
     var title = $('#titleInput').val();
     var blogPost = $('#postInput').val();
 

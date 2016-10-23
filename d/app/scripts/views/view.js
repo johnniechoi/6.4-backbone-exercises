@@ -1,15 +1,14 @@
 var $ = require('jquery');
 var Backbone = require('backbone');
-var urlTemplate = require('../../templates/url_template.hbs')
+var urlTemplate = require('../../templates/url_template.hbs');
 
 var BookmarkAddForm = Backbone.View.extend({
   events: {
-    'submit': 'add'
+    'click .submit': 'add'
   },
   render: function(){
     this.$el.html(this.template());
     return this;
-    console.log('hello');
   },
   add: function(e){
     e.preventDefault();
@@ -25,14 +24,31 @@ var BookmarkAddForm = Backbone.View.extend({
 });
 
 var BookmarkList = Backbone.View.extend({
-  tagName: 'ul',
+  tagName: 'div',
   className: 'list-group-item',
   initialize: function(){
-    this.listenTo(this.model, 'changed', this.render)
+    this.listenTo(this.collection, 'add', this.renderBookmarkItem);
   },
-  render: function(url){
+  render: function(){
+    return this;
+  },
+  renderBookmarkItem: function(bookmark){
+    var bookmarkItem = new BookmarkItemView({model: bookmark});
+    this.$el.append(bookmarkItem.render().el);
+    // console.log('hello');
+  }
+});
+
+var BookmarkItemView = Backbone.View.extend({
+  tagName: 'div',
+  template: urlTemplate,
+  initialize: function(){
+    this.listenTo(this.model, 'changed', this.render);
+    // console.log(this.model);
+  },
+  render: function(){
     var context = this.model.toJSON();
-    this.$el.append(this.template(context).el);
+    this.$el.html(this.template(context));
     return this;
   }
 });
@@ -40,4 +56,4 @@ var BookmarkList = Backbone.View.extend({
 module.exports = {
   BookmarkList: BookmarkList,
   BookmarkAddForm: BookmarkAddForm
-}
+};

@@ -1,24 +1,23 @@
 var $ = require('jquery');
 var Backbone = require('backbone');
-var view = require('./views/view')
-var model = require('./models/model')
+var view = require('./views/view');
+var model = require('./models/model');
 
 
 var AppRouter = Backbone.Router.extend({
   routes:{
-    '': 'index'
+    '': 'index',
+    'post/': 'getBookmark'
   },
   initialize: function(){
     this.collection = new model.BookmarkCollection();
     this.collection.fetch();
+    // console.log(this.collection);
   },
-
-  render: function(){
-  console.log('hello');
-  var bookmarkList = new view.BookmarkList();
-  $('.app').html(bookmarkList.render().el);
-  console.log('hello');
-  return this;
+  index: function(){
+    var bookmarkListing = new view.BookmarkList({collection: this.collection});
+    $('.app').append(bookmarkListing.render().el)
+  // console.log('collection:', this.collection);
 }
 });
 
@@ -26,4 +25,4 @@ var router = new AppRouter();
 
 module.exports = {
   router: router
-}
+};

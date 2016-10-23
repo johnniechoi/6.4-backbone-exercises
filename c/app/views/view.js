@@ -13,6 +13,7 @@ var titleList = Backbone.View.extend({
   },
   render: function(blogPost){
   var context = blogPost.toJSON();
+  // console.log(blogPost);
   this.$el.append(this.template(context));
   // console.log(this.collection.models);
   return this;
@@ -24,10 +25,12 @@ var titleList = Backbone.View.extend({
     className: 'well',
     template: templatePost,
     initialize: function(){
-      this.listenTo(this.model, 'changed', this.render)
+      // this.listenTo(this.model, 'changed', this.render)
     },
     render: function(){
-      this.$el.html(this.template(this.model.toJSON()));
+      var content = this.model.toJSON();
+      console.log(content);
+      this.$el.html(this.template(content));
       return this;
     }
   });

@@ -1,6 +1,6 @@
 # 6.4-backbone-exercises
 
-In order to see the script run: npm run watch in version control.
+In order to see the script run the following in version control: npm run watch
 
 ##Technology
 - Backbone
